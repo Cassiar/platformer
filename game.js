@@ -19,11 +19,11 @@ function setup() {
 	isGameOver = false;
 	var score = 0;
 
-	jewel = createSprite(camera.position.x + width, random(0, (height-10)-15), 10, 10);
+	jewel = createSprite(camera.position.x + width, random(0, (height-12.5)-15), 12.5, 12.5);
 	// jewelImage.addImage(jewelImage);
 	jewel.rotation = 45;
 
-	createCanvas(400, 300);
+	createCanvas(800, 600);
 	background(150, 200, 250);
 	groundSprites = new Group();
 
@@ -76,7 +76,7 @@ function draw() {
 		groundSprites.add(firstGroundSprite);
 	}
 
-	if (random() > .97){
+	if (random() > .94){
 		var obstacle = createSprite(camera.position.x + width, random(0, (height-25)-15), 25, 25);
 		obstacleSprites.add(obstacle);
 	}
