@@ -34,7 +34,7 @@ function setup() {
 		groundSprites.add(groundSprite);
 	}
 
-	player = createSprite(100, height-75, 30, 30);
+	player = createSprite(100, 300, 30, 30);
 	obstacleSprites = new Group();
 	// jewelSprites = new Group();
 }
@@ -53,12 +53,12 @@ function draw() {
 
 	if (groundSprites.overlap(player)) {
 		player.velocity.y = 0;
-		player.position.y = (height-50) - (player.height/2);
+		player.position.y = 40;
 	}
 
-	/*if (player.position.y < 0) {
-		player.position.y = 0 + (player.height/2);
-	}*/
+	if (player.position.y < -5) {
+		player.position.y = height-100;
+	}
 	if (keyDown(UP_ARROW)) {
 		player.velocity.y = JUMP;
 	}
