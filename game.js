@@ -47,7 +47,29 @@ function draw() {
 		textAlign(CENTER);
 		text("Your score was: " + score, camera.position.x, camera.position.y - 20);
 		text("Game Over! Click anywhere to restart", camera.position.x, camera.position.y);
-	} else {
+	
+		if (keyDown(UP_ARROW)) {
+		
+
+
+		for (var n = 0; n < numGroundSprites; n++) {
+  			var groundSprite = groundSprites[n];
+ 			groundSprite.position.x = n*50;
+		}
+
+		player.position.x = 100;
+		player.position.y = 300;
+
+		obstacleSprites.removeSprites();
+
+		jewel.position.x = camera.position.x + width;
+		jewel.position.y = random(0, (height-10)-15);
+
+		score = 0;
+		isGameOver = false;
+	
+	}
+} else {
 	background(150, 200, 250);
 	player.velocity.y = player.velocity.y + GRAVITY;
 
@@ -107,25 +129,27 @@ function addScore() {
 
 function endGame() {
 	isGameOver = true;
+
+
 }
 
-function mouseClicked() {
-	if (isGameOver) {
+// function keyDown() {
+// 	if (isGameOver) {
 
-		for (var n = 0; n < numGroundSprites; n++) {
-  			var groundSprite = groundSprites[n];
- 			groundSprite.position.x = n*50;
-		}
+// 		for (var n = 0; n < numGroundSprites; n++) {
+//   			var groundSprite = groundSprites[n];
+//  			groundSprite.position.x = n*50;
+// 		}
 
-		player.position.x = 100;
-		player.position.y = height-75;
+// 		player.position.x = 100;
+// 		player.position.y = 300;
 
-		obstacleSprites.removeSprites();
+// 		obstacleSprites.removeSprites();
 
-		jewel.position.x = camera.position.x + width;
-		jewel.position.y = random(0, (height-10)-15);
+// 		jewel.position.x = camera.position.x + width;
+// 		jewel.position.y = random(0, (height-10)-15);
 
-		score = 0;
-		isGameOver = false;
-	}
-}
+// 		score = 0;
+// 		isGameOver = false;
+// 	}
+// }
