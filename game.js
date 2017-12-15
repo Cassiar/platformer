@@ -8,11 +8,20 @@ var player;
 var obstacleSprites;
 var isGameOver;
 var score = 0;
-var jewelSprites;
+var jewel;
+var jewelImage;
+
+function preload() {
+	// jewelImage = loadImage("");
+}
 
 function setup() {
 	isGameOver = false;
 	var score = 0;
+
+	jewel = createSprite(camera.position.x + width, random(0, (height-10)-15), 10, 10);
+	// jewelImage.addImage(jewelImage);
+	jewel.rotation = 45;
 
 	createCanvas(400, 300);
 	background(150, 200, 250);
@@ -25,12 +34,13 @@ function setup() {
 		groundSprites.add(groundSprite);
 	}
 
-	player = createSprite(100, height-75, 40, 40);
+	player = createSprite(100, height-75, 30, 30);
 	obstacleSprites = new Group();
-	jewelSprites = new Group();
+	// jewelSprites = new Group();
 }
 
 function draw() {
+
 	if (isGameOver) {
 		background(0);
 		fill(255);
@@ -52,9 +62,9 @@ function draw() {
 	if (keyDown(UP_ARROW)) {
 		player.velocity.y = JUMP;
 	}
-	/*if (keyDown(DOWN_ARROW)) {
-		player.velocity.y = GRAVITY*.5;
-	}*/
+	if (keyDown(DOWN_ARROW)) {
+		player.velocity.y = GRAVITY*40;
+	}
 
 	player.position.x = player.position.x + 5;
 	camera.position.x = player.position.x + (width/4);
@@ -71,22 +81,17 @@ function draw() {
 		obstacleSprites.add(obstacle);
 	}
 
-	var firstObstacle = obstacleSprites[0];
+var firstObstacle = obstacleSprites[0];
 	if (obstacleSprites.length > 0 && firstObstacle.position.x <= camera.position.x - (width/2 + firstObstacle.width/2)) {
 		removeSprite(firstObstacle);
 	}
 	obstacleSprites.overlap(player, endGame);
-    
- //   if (random() > .985){
-	// 	var jewel = createSpriteEllipse(camera.position.x + width, random(0, (height-10)-15), 10, 10);
-	// 	jewelSprites.add(jewel);
-	// }
 
-	// var firstJewel = jewelSprites[0];
-	// if (jewelSprites.length > 0 && firstJewel.position.x <= camera.position.x - (width/2 + firstJewel.width/2)) {
-	// 	removeSprite(firstJewel);
-	// }
-	// jewelSprites.overlap(player, addScore);
+	if (jewel.position.x <= camera.position.x - (width/2 + jewel.width/2)) {
+		jewel.position.x = camera.position.x + width;
+		jewel.position.y = random(0, (height-10)-15);
+	}
+	jewel.overlap(player, addScore);
 	drawSprites();
 	score = score + 1;
 	textAlign(CENTER);
@@ -94,10 +99,12 @@ function draw() {
     }
 }
 
-// function addScore() {
-// 	removeSprite(jewel);
-// 	score = score + 50;
-// }
+function addScore() {
+	score = score + 50;
+	jewel.position.x = camera.position.x + width;
+	jewel.position.y = random(0, (height-10)-15);
+}
+
 function endGame() {
 	isGameOver = true;
 }
@@ -114,6 +121,9 @@ function mouseClicked() {
 		player.position.y = height-75;
 
 		obstacleSprites.removeSprites();
+
+		jewel.position.x = camera.position.x + width;
+		jewel.position.y = random(0, (height-10)-15);
 
 		score = 0;
 		isGameOver = false;
