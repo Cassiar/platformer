@@ -1,9 +1,9 @@
 var GRAVITY = 0.3;
 var JUMP = -5;
-var groundSprites;
-var GROUND_SPRITE_WIDTH = 50;
-var GROUND_SPRITE_HEIGHT = 50;
-var numGroundSprites;
+// var groundSprites;
+// var GROUND_SPRITE_WIDTH = 50;
+// var GROUND_SPRITE_HEIGHT = 50;
+// var numGroundSprites;
 var player;
 var obstacleSprites;
 var isGameOver;
@@ -25,14 +25,14 @@ function setup() {
 
 	createCanvas(800, 600);
 	background(150, 200, 250);
-	groundSprites = new Group();
+	// groundSprites = new Group();
 
-	numGroundSprites = width/GROUND_SPRITE_WIDTH + 1;
+	// numGroundSprites = width/GROUND_SPRITE_WIDTH + 1;
 
-	for (var n = 0; n < numGroundSprites; n++) {
-		var groundSprite = createSprite(n*50, height-25, GROUND_SPRITE_WIDTH, GROUND_SPRITE_HEIGHT);
-		groundSprites.add(groundSprite);
-	}
+	// for (var n = 0; n < numGroundSprites; n++) {
+	// 	var groundSprite = createSprite(n*50, height-25, GROUND_SPRITE_WIDTH, GROUND_SPRITE_HEIGHT);
+	// 	groundSprites.add(groundSprite);
+	// }
 
 	player = createSprite(100, 300, 30, 30);
 	obstacleSprites = new Group();
@@ -52,10 +52,10 @@ function draw() {
 		
 
 
-		for (var n = 0; n < numGroundSprites; n++) {
-  			var groundSprite = groundSprites[n];
- 			groundSprite.position.x = n*50;
-		}
+		// for (var n = 0; n < numGroundSprites; n++) {
+  // 			var groundSprite = groundSprites[n];
+ 	// 		groundSprite.position.x = n*50;
+		// }
 
 		player.position.x = 100;
 		player.position.y = 300;
@@ -73,13 +73,13 @@ function draw() {
 	background(150, 200, 250);
 	player.velocity.y = player.velocity.y + GRAVITY;
 
-	if (groundSprites.overlap(player)) {
+	if (player.position.y > height) {
 		player.velocity.y = 0;
-		player.position.y = 40;
+		player.position.y = 0;
 	}
 
 	if (player.position.y < -5) {
-		player.position.y = height-100;
+		player.position.y = height;
 	}
 	if (keyDown(UP_ARROW)) {
 		player.velocity.y = JUMP;
@@ -90,13 +90,13 @@ function draw() {
 
 	player.position.x = player.position.x + 5;
 	camera.position.x = player.position.x + (width/4);
-	var firstGroundSprite = groundSprites[0];
+	// var firstGroundSprite = groundSprites[0];
 
-	if (firstGroundSprite.position.x <= camera.position.x - (width/2 + firstGroundSprite.width/2)) {
-		groundSprites.remove(firstGroundSprite);
-		firstGroundSprite.position.x = firstGroundSprite.position.x + numGroundSprites*firstGroundSprite.width;
-		groundSprites.add(firstGroundSprite);
-	}
+	// if (firstGroundSprite.position.x <= camera.position.x - (width/2 + firstGroundSprite.width/2)) {
+	// 	groundSprites.remove(firstGroundSprite);
+	// 	firstGroundSprite.position.x = firstGroundSprite.position.x + numGroundSprites*firstGroundSprite.width;
+	// 	groundSprites.add(firstGroundSprite);
+	// }
 
 	if (random() > .94){
 		var obstacle = createSprite(camera.position.x + width, random(0, (height-25)-15), 25, 25);
